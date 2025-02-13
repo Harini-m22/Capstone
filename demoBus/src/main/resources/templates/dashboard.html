@@ -1,0 +1,107 @@
+<!-- src/main/resources/templates/dashboard.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - Online Bus Booking System</title>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS (optional) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+        /* Adjust content so it doesn't hide behind header */
+        .content {
+            margin-top: 70px;
+        }
+        /* Sidebar styling */
+        #sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #343a40;
+            overflow-x: hidden;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+        #sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 1.1em;
+            color: #ddd;
+            display: block;
+            transition: 0.3s;
+        }
+        #sidebar a:hover {
+            color: #fff;
+        }
+        #sidebar .closebtn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2em;
+            color: #fff;
+        }
+        /* Main content styling */
+        #main {
+            transition: margin-left 0.3s;
+            padding: 20px;
+        }
+        .hamburger {
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #343a40;
+        }
+    </style>
+</head>
+<body>
+<!-- Common Header -->
+<div class="header">
+    Online Bus Booking System
+</div>
+
+<!-- Sidebar Navigation -->
+
+<div id="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a th:href="@{/busRoutes/search}">Browse Bus Routes</a>
+    <a th:href="@{/profile}">Profile</a>
+    <a th:href="@{/bookingHistory}">Booking History</a>
+    <a th:href="@{/logout}">Logout</a>
+</div>
+
+<!-- Main Content -->
+<div id="main" class="content">
+    <span class="hamburger" onclick="openNav()">&#9776; Menu</span>
+    <div class="container mt-3">
+        <h2>Welcome, <span th:text="${user.name}">User</span>!</h2>
+        <p>Your email: <span th:text="${user.email}"></span></p>
+        <!-- Additional dashboard content can go here -->
+    </div>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+    function closeNav() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>
+</body>
+</html>

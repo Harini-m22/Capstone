@@ -1,0 +1,63 @@
+<!-- src/main/resources/templates/routesList.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Available Bus Routes</title>
+  <meta charset="UTF-8">
+  <!-- Optional: Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Common Header styling */
+    .header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.5em;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1100;
+    }
+
+  </style>
+</head>
+<body>
+<div class="header">
+  Online Bus Booking System
+</div>
+<div class="container mt-5">
+  <h2>Available Bus Routes</h2>
+  <div th:if="${#lists.isEmpty(routes)}">
+    <p>No routes found. Please modify your search criteria.</p>
+  </div>
+  <div th:if="${!#lists.isEmpty(routes)}">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="route : ${routes}">
+        <td th:text="${route.fromLocation}">From</td>
+        <td th:text="${route.toLocation}">To</td>
+        <td th:text="${#temporals.format(route.departureTime, 'yyyy-MM-dd HH:mm')}">Departure</td>
+        <td th:text="${#temporals.format(route.arrivalTime, 'yyyy-MM-dd HH:mm')}">Arrival</td>
+        <td th:text="${route.price}">Price</td>
+        <td>
+          <a th:href="@{'/book/' + ${route.id}}" class="btn btn-success">Book Now</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

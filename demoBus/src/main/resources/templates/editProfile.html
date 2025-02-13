@@ -1,0 +1,50 @@
+<!-- src/main/resources/templates/editProfile.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Profile</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    Online Bus Booking System
+</div>
+<br>
+<div class="container mt-5">
+    <h2>Edit Profile</h2>
+    <form th:action="@{/profile/edit}" th:object="${user}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   id="name" placeholder="Enter your name" required>
+        </div>
+        <!-- For simplicity, email update is not provided -->
+        <div class="form-group">
+            <label for="password">Change Password:</label>
+            <input type="password" th:field="*{password}" class="form-control"
+                   id="password" placeholder="Enter new password">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+    <a th:href="@{/profile}" class="btn btn-secondary mt-3">Back to Profile</a>
+</div>
+</body>
+</html>

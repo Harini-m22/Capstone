@@ -1,0 +1,59 @@
+<!-- src/main/resources/templates/editBooking.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Booking - Online Bus Booking System</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Common Header styling */
+    .header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.5em;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1100;
+    }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+<h2>Edit Booking</h2>
+<form th:action="@{/booking/edit}" th:object="${booking}" method="post">
+<!-- Hidden field for booking ID -->
+<input type="hidden" th:field="*{id}" />
+<div class="form-group">
+  <label>Route:</label>
+  <p th:text="${booking.origin} + ' to ' + ${booking.destination}"></p>
+</div>
+<div class="form-group">
+  <label>Departure Time:</label>
+  <p th:text="${booking.departureTime}"></p>
+</div>
+<div class="form-group">
+  <label>Arrival Time:</label>
+  <p th:text="${booking.arrivalTime}"></p>
+</div>
+<div class="form-group">
+  <label>Price:</label>
+  <p th:text="${booking.price}"></p>
+</div>
+<div class="form-group">
+  <label for="passengerName">Passenger Name:</label>
+  <input type="text" th:field="*{passengerName}" id="passengerName" class="form-control" required>
+</div>
+<div class="form-group">
+  <label for="seatPreference">Seat Preference:</label>
+  <input type="text" th:field="*{seatPreference}" id="seatPreference" class="form-control" required>
+</div>
+<button type="submit" class="btn btn-primary">Save Changes</button>
+<a th:href="@{/profile}" class="btn btn-secondary">Cancel</a>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- src/main/resources/templates/searchRoutes.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search Bus Routes</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    Online Bus Booking System
+</div>
+<br>
+<div class="container mt-5">
+    <h2>Search Bus Routes</h2>
+    <form th:action="@{/busRoutes}" method="get">
+        <div class="form-group">
+            <label for="origin">From:</label>
+            <input type="text" name="origin" id="origin" class="form-control" placeholder="Enter origin" required>
+        </div>
+        <div class="form-group">
+            <label for="destination">To:</label>
+            <input type="text" name="destination" id="destination" class="form-control" placeholder="Enter destination" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+</body>
+</html>

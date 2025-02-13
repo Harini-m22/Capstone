@@ -1,0 +1,85 @@
+<!-- src/main/resources/templates/bookingForm.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Form</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    Online Bus Booking System
+</div><br>
+<div class="container mt-5">
+    <h2>Booking Form for Route:
+        <span th:text="${booking.origin} + ' to ' + ${booking.destination}">Route</span>
+    </h2>
+    <!-- Display route details -->
+    <p>Departure Time: <strong th:text="${booking.departureTime}"></strong></p>
+    <p>Arrival Time: <strong th:text="${booking.arrivalTime}"></strong></p>
+    <p>Price per Seat: <strong th:text="${booking.price}"></strong></p>
+    <form th:action="@{/booking}" th:object="${booking}" method="post">
+        <div class="form-group">
+            <label for="passengerName">Passenger Name:</label>
+            <input type="text" th:field="*{passengerName}" id="passengerName" class="form-control" placeholder="Enter passenger name" required>
+        </div>
+        <div class="form-group">
+            <label for="seatPreference">Seat Preference:</label>
+            <input type="text" th:field="*{seatPreference}" id="seatPreference" class="form-control" placeholder="e.g., window, aisle" required>
+        </div>
+        <!-- New fields for multiple seats booking -->
+        <div class="form-group">
+            <label for="numberOfSeats">Number of Seats:</label>
+            <input type="number" th:field="*{numberOfSeats}" id="numberOfSeats" class="form-control" min="1" required oninput="calculateTotal()">
+        </div>
+        <div class="form-group">
+            <label for="totalAmount">Total Amount:</label>
+            <input type="text" th:field="*{totalAmount}" id="totalAmount" class="form-control" readonly>
+        </div>
+        <div class="form-group">
+            <label for="coPassengerNames">Co-Passenger Name(s):</label>
+            <input type="text" th:field="*{coPassengerNames}" id="coPassengerNames" class="form-control" placeholder="Enter co-passenger names (if any)">
+        </div>
+        <!-- Hidden fields to preserve route details -->
+        <input type="hidden" th:field="*{origin}" />
+        <input type="hidden" th:field="*{destination}" />
+        <input type="hidden" th:field="*{departureTime}" />
+        <input type="hidden" th:field="*{arrivalTime}" />
+        <input type="hidden" th:field="*{price}" />
+        <button type="submit" class="btn btn-primary">Book Ticket</button>
+    </form>
+    <a th:href="@{/dashboard}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+
+<!-- JavaScript to calculate total amount dynamically -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var unitPrice = [[${booking.price}]];
+    function calculateTotal() {
+        var numSeats = document.getElementById("numberOfSeats").value;
+        if(numSeats === "" || numSeats <= 0){
+            numSeats = 0;
+        }
+        var total = numSeats * unitPrice;
+        document.getElementById("totalAmount").value = total.toFixed(2);
+    }
+    /*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!-- src/main/resources/templates/bookingConfirmation.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Booking Confirmation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    Online Bus Booking System
+</div><br>
+<div class="container mt-5">
+    <h2>Booking Confirmation</h2>
+    <p>Thank you, <span th:text="${booking.passengerName}"></span>! Your booking has been confirmed.</p>
+    <h4>Booking Details:</h4>
+    <ul>
+        <li>Route: <span th:text="${booking.origin} + ' to ' + ${booking.destination}"></span></li>
+        <li>Departure Time: <span th:text="${booking.departureTime}"></span></li>
+        <li>Arrival Time: <span th:text="${booking.arrivalTime}"></span></li>
+        <li>Price per Seat: <span th:text="${booking.price}"></span></li>
+        <li>Number of Seats: <span th:text="${booking.numberOfSeats}"></span></li>
+        <li>Total Amount: <span th:text="${booking.totalAmount}"></span></li>
+        <li>Seat Preference: <span th:text="${booking.seatPreference}"></span></li>
+        <li>Co-Passenger Name(s): <span th:text="${booking.coPassengerNames}"></span></li>
+    </ul>
+    <p>Your e-ticket has been sent to your email address.</p>
+    <a th:href="@{/dashboard}" class="btn btn-primary">Back to Dashboard</a>
+</div>
+</body>
+</html>

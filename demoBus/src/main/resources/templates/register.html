@@ -1,0 +1,72 @@
+<!-- src/main/resources/templates/register.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Registration - Online Bus Booking System</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        // Redirect to login page after a delay when registration is successful
+        function redirectToLogin() {
+            setTimeout(function () {
+                window.location.href = "/login";
+            }, 2000); // Redirect after 2 seconds
+        }
+    </script>
+    <style>
+        /* Common Header styling */
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5em;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1100;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    Online Bus Booking System
+</div>
+<br>
+<div class="container mt-5">
+    <h2>User Registration</h2>
+
+    <!-- Display success message and auto-redirect -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+
+    <!-- If successful, redirect to login -->
+    <script th:if="${successMessage}">
+        redirectToLogin();
+    </script>
+
+    <form th:object="${user}" th:action="@{/register}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter your name" required>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" placeholder="Enter your email" required>
+            <div th:if="${#fields.hasErrors('email')}" class="text-danger" th:errors="*{email}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Enter your password" required minlength="6">
+            <div th:if="${#fields.hasErrors('password')}" class="text-danger" th:errors="*{password}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <a th:href="@{/login}" class="btn btn-link mt-3">Already have an account? Login Here</a>
+</div>
+</body>
+</html>
